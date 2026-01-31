@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UsaTuSubsidio — Modern Real Estate Subsidy Portal
 
-## Getting Started
+Next.js (App Router + TS + Tailwind) para un portal de proyectos con subsidio en Chile. Incluye Home, listado de propiedades, detalle de propiedad, inmobiliarias, y sección de artículos (Aprende) con datos mock.
 
-First, run the development server:
+## Scripts
+- `npm run dev` — entorno local
+- `npm run build` — build de producción
+- `npm run start` — serve del build
 
+## Estructura principal
+- `src/app/page.tsx` — Home (hero carousel, buscador flotante, destacadas, inmobiliarias, regiones, artículos)
+- `src/app/properties` — listado con filtros, sort y paginación
+- `src/app/properties/[id]` — detalle con galería, tabs de contacto, tabla de info y enlaces a inmobiliaria
+- `src/app/developers` — listado de inmobiliarias
+- `src/app/developers/[id]` — perfil de inmobiliaria + proyectos
+- `src/app/learn` — artículos
+- `src/app/learn/[id]` — detalle de artículo
+- `src/data/*.ts` — mock data (propiedades, inmobiliarias, artículos, regiones)
+- `src/components` — UI reutilizable (Navbar, Footer, Hero, SearchBar, filtros, cards, etc.)
+
+## Branding
+- Logo: `https://pruebasutsdev.com/wp-content/uploads/2026/01/uts.png`
+- Colores: azul (`#00377c`), azul secundario (`#436eaf`), rojo (`#c5474a`), neutros claros.
+- Tipografía: Montserrat (`display: swap`).
+
+## Datos mock
+Estructura de propiedad (`src/types`):
+- id, title, region, commune, locationLabel, propertyType, bedroomsMax, bathroomsMax, minIncome, priceUF?, subsidies[], area, deliveryStatus, developerId, developerName, images[], description, videoUrl?, virtualTourUrl?, highlighted.
+
+## Filtros y UX
+- Buscador: región → comuna dependiente, tipo, dormitorios, baños, subsidios multi, renta mínima. Redirige a `/properties` con query params.
+- Listado: filtros en sidebar (collapsible vía responsive), sort (destacados, renta asc/desc), paginación simple, cards reutilizadas.
+- Detalle: galería, tabs Cotiza/Asesoría, tabla de info con campos exactos solicitados, badges de subsidio, developer card, secciones de video/tour sin autoplay.
+
+## Estilos
+- Tailwind configurado (`tailwind.config.js`, `postcss.config.js`).
+- Tokens en `globals.css` (colores y radios) + clases utilitarias.
+
+## Cómo probar
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
+- Setear `NEXT_PUBLIC_SITE_URL` si quieres canonical/base.
+- `npm run build` y deploy en Vercel/servicio Node.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notas
+- Sin dependencias externas de datos; todo mock listo para reemplazar por API real.
+- Video y tour solo on-click; sin autoplay.
