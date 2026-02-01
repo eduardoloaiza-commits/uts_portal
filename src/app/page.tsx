@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { SearchBar } from "@/components/SearchBar";
 import { properties } from "@/data/properties";
@@ -47,7 +48,9 @@ export default function Home() {
     <div className="space-y-12">
       <section className="space-y-4">
         <HeroCarousel slides={slides} />
-        <SearchBar floating />
+        <Suspense fallback={<div className="bg-white border border-[var(--gray-300)] rounded-[16px] p-4 shadow-sm">Cargando buscador...</div>}>
+          <SearchBar floating />
+        </Suspense>
       </section>
 
       <section className="space-y-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { properties } from "@/data/properties";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Filters, FiltersSidebar } from "@/components/FiltersSidebar";
@@ -42,12 +42,14 @@ export default function PropertiesPage() {
   return (
     <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
       <div className="lg:sticky lg:top-24 h-fit">
-        <FiltersSidebar
-          onChange={(f) => {
-            setFilters(f);
-            setPage(1);
-          }}
-        />
+        <Suspense fallback={<div className="bg-white border border-[var(--gray-300)] rounded-[14px] p-4">Cargando filtros...</div>}>
+          <FiltersSidebar
+            onChange={(f) => {
+              setFilters(f);
+              setPage(1);
+            }}
+          />
+        </Suspense>
       </div>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
